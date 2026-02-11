@@ -72,3 +72,13 @@ Approximately 3.5 hours total:
 - **Astro 5.x** - Static site generator
 - **TypeScript** - Type safety and developer experience
 - **CSS** - Native styling with design tokens
+
+## Development Tools
+
+**Claude AI** was used as a development assistant for:
+- Writing scripts to analyze the JSON data structure
+- Developing and refining the transformation functions
+- Code review and feedback on implementation approaches
+- Discussing edge cases and design decisions
+
+All code was reviewed, understood, and modified by me. The final implementation represents my understanding and decision-making.

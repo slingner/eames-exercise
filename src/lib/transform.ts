@@ -5,7 +5,7 @@
  */
 
 import type { Record as SampleRecord } from '../scripts/quicktype-generated'
-import type { Item, ItemFlags, RelatedItem } from '../types/item'
+import type { Item, ItemFlags } from '../types/item'
 
 // Type aliases for readability - derived from the quicktype-generated Record type
 // These stay in sync automatically if the schema is regenerated
@@ -108,7 +108,7 @@ export function enrichRelatedItems(items: Item[]): Item[] {
  * @param creator - Can be string, array of strings, empty array, or null
  * @returns Normalized creator string or null
  */
-function normalizeCreator(creator: SampleCreator): string | null {
+function normalizeCreator(creator: SampleCreator): Item['creator'] {
   // Handle null or undefined
   if (creator == null) {
     return null
@@ -154,7 +154,7 @@ function normalizeCreator(creator: SampleCreator): string | null {
  * @param date - Can be object, string, number, or null
  * @returns Normalized date string or null
  */
-function normalizeDate(date: SampleDate): string | null {
+function normalizeDate(date: SampleDate): Item['date'] {
   if (date == null) {
     return null
   }
@@ -197,7 +197,7 @@ function normalizeDate(date: SampleDate): string | null {
  * @param materials - Can be string, array of strings, empty array, or null
  * @returns Normalized materials string or null
  */
-function normalizeMaterials(materials: SampleMaterials): string | null {
+function normalizeMaterials(materials: SampleMaterials): Item['materials'] {
   if (materials == null) {
     return null
   }
@@ -229,7 +229,7 @@ function normalizeMaterials(materials: SampleMaterials): string | null {
  * @param dimensions - Object with various dimension fields, or null
  * @returns Normalized dimensions string or null
  */
-function normalizeDimensions(dimensions: any): string | null {
+function normalizeDimensions(dimensions: any): Item['dimensions'] {
   if (!dimensions || typeof dimensions !== 'object' || Object.keys(dimensions).length === 0) {
     return null
   }
@@ -272,7 +272,7 @@ function normalizeDimensions(dimensions: any): string | null {
  * Normalizes the flags field into a consistent format
  * Converts snake_case to camelCase and filters out any non-boolean flags
  */
-function normalizeFlags(flags: any): ItemFlags | null {
+function normalizeFlags(flags: any): Item['flags'] {
   if (!flags || typeof flags !== 'object') {
     return null
   }
@@ -295,7 +295,7 @@ function normalizeFlags(flags: any): ItemFlags | null {
 /**
  * Normalizes the related field into a consistent array format
  */
-function normalizeRelated(related: any): RelatedItem[] {
+function normalizeRelated(related: any): Item['related'] {
   if (!Array.isArray(related) || related.length === 0) {
     return []
   }
@@ -311,7 +311,7 @@ function normalizeRelated(related: any): RelatedItem[] {
 /**
  * Normalizes external IDs object (filters out all-null objects)
  */
-function normalizeExternalIds(value: any): Record<string, string> | null {
+function normalizeExternalIds(value: any): Item['externalIds'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -329,7 +329,7 @@ function normalizeExternalIds(value: any): Record<string, string> | null {
 /**
  * Normalizes rights field (can be string or object)
  */
-function normalizeRights(value: any): string | null {
+function normalizeRights(value: any): Item['rights'] {
   if (!value) return null
 
   if (typeof value === 'string') {
@@ -346,7 +346,7 @@ function normalizeRights(value: any): string | null {
 /**
  * Normalizes geo field
  */
-function normalizeGeo(value: any): { country?: string; region?: string } | null {
+function normalizeGeo(value: any): Item['geo'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -361,7 +361,7 @@ function normalizeGeo(value: any): { country?: string; region?: string } | null 
 /**
  * Normalizes series field
  */
-function normalizeSeries(value: any): { title?: string; type?: string } | null {
+function normalizeSeries(value: any): Item['series'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -376,7 +376,7 @@ function normalizeSeries(value: any): { title?: string; type?: string } | null {
 /**
  * Normalizes location field
  */
-function normalizeLocation(value: any): { site?: string; shelf?: string } | null {
+function normalizeLocation(value: any): Item['location'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -391,7 +391,7 @@ function normalizeLocation(value: any): { site?: string; shelf?: string } | null
 /**
  * Normalizes edition field
  */
-function normalizeEdition(value: any): { number?: any; notes?: string } | null {
+function normalizeEdition(value: any): Item['edition'] {
   if (!value || typeof value !== 'object') {
     return null
   }
