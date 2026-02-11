@@ -30,7 +30,7 @@ export function transformRecord(record: SampleRecord): Item {
     flags: normalizeFlags(record.flags),
     related: normalizeRelated(record.related),
 
-    // Additional fields (for dropdown)
+    // Additional fields (for modal)
     notes: normalizeArray((record as any).notes),
     externalIds: normalizeExternalIds((record as any).external_ids),
     keywords: normalizeArray((record as any).keywords),

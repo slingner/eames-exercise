@@ -49,7 +49,7 @@ export interface Item {
   flags: ItemFlags | null        // special conditions/warnings
   related: RelatedItem[]         // linked objects
 
-  // Additional fields (shown in dropdown, ≤10% presence)
+  // Additional fields (shown in modal, ≤10% presence)
   notes: string[] | null         // curator notes
   externalIds: Record<string, string> | null // external system IDs
   keywords: string[] | null      // searchable keywords
