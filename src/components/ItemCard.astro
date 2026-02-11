@@ -83,6 +83,7 @@ const additionalFields = [
 
 <div class="card">
   <div class="card-header">
+    <!--  class:list = astro conditional classes -->
     <h2 class:list={{ unknown: item.title === 'Unknown Title' }}>{item.title}</h2>
     {activeFlags.length > 0 && (
       <div class="flags">

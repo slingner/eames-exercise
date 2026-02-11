@@ -15,6 +15,9 @@ let items: Item[] = []
 let error: string | null = null
 
 try {
+  // Using dynamic import with await to demonstrate async data loading pattern
+  // In a real application, this would be: await fetch('https://api.example.com/collection')
+  // Astro's frontmatter supports top-level await for data fetching
   const rawData = await import('../data/collection.json')
   const records = rawData.default.records as SampleRecord[]
 

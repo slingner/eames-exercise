@@ -4,13 +4,14 @@
  * Transforms messy Eames Institute sample data into clean, normalized format.
  */
 
-import type { Record as SampleRecord, DateClass } from '../scripts/quicktype-generated'
+import type { Record as SampleRecord } from '../scripts/quicktype-generated'
 import type { Item, ItemFlags, RelatedItem } from '../types/item'
 
-// Type aliases for the messy union types in the raw data
-type SampleCreator = string[] | null | string
-type SampleDate = DateClass | number | null | string
-type SampleMaterials = string[] | null | string
+// Type aliases for readability - derived from the quicktype-generated Record type
+// These stay in sync automatically if the schema is regenerated
+type SampleCreator = SampleRecord['creator']
+type SampleDate = SampleRecord['date']
+type SampleMaterials = SampleRecord['materials']
 
 /* ============================================================================
  * PUBLIC API - Main transformation functions
@@ -401,6 +402,7 @@ function normalizeEdition(value: any): { number?: any; notes?: string } | null {
 
   return Object.keys(edition).length > 0 ? edition : null
 }
+
 
 /* ============================================================================
  * HELPER FUNCTIONS - Generic utilities used by normalizers
