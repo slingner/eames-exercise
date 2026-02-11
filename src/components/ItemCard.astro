@@ -60,7 +60,10 @@ const additionalFields = [
         {item.flags.possibleDuplicate && <span class="flag duplicate">Possible Duplicate</span>}
         {item.flags.prototype && <span class="flag prototype">Prototype</span>}
         {item.flags.needsResearch && <span class="flag research">Needs Research</span>}
+        {item.flags.needsReview && <span class="flag review">Needs Review</span>}
         {item.flags.attributionUncertain && <span class="flag uncertain">Attribution Uncertain</span>}
+        {item.flags.materialsIncomplete && <span class="flag incomplete">Materials Incomplete</span>}
+        {item.flags.missingDimensions && <span class="flag missing">Missing Dimensions</span>}
       </div>
     )}
   </div>
@@ -202,6 +205,7 @@ const additionalFields = [
     flex-wrap: wrap;
     gap: var(--space-xs);
     align-items: flex-start;
+    justify-content: flex-end;
   }
 
   .flag {
@@ -231,10 +235,28 @@ const additionalFields = [
     border: 1px solid var(--flag-research-border);
   }
 
+  .flag.review {
+    background: var(--flag-review-bg);
+    color: var(--flag-review-text);
+    border: 1px solid var(--flag-review-border);
+  }
+
   .flag.uncertain {
     background: var(--flag-uncertain-bg);
     color: var(--flag-uncertain-text);
     border: 1px solid var(--flag-uncertain-border);
+  }
+
+  .flag.incomplete {
+    background: var(--flag-incomplete-bg);
+    color: var(--flag-incomplete-text);
+    border: 1px solid var(--flag-incomplete-border);
+  }
+
+  .flag.missing {
+    background: var(--flag-missing-bg);
+    color: var(--flag-missing-text);
+    border: 1px solid var(--flag-missing-border);
   }
 
   h2 {
