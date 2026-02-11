@@ -8,10 +8,11 @@
 import ItemCard from '../components/ItemCard.astro'
 import { transformRecords, enrichRelatedItems } from '../lib/transform'
 import type { Record as SampleRecord } from '../scripts/quicktype-generated'
+import type { Item } from '../types/item'
 
 // Load the raw sample data
-let items = []
-let error = null
+let items: Item[] = []
+let error: string | null = null
 
 try {
   const rawData = await import('../data/collection.json')

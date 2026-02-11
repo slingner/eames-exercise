@@ -10,6 +10,9 @@ npm install
 
 # Run the development server
 npm run dev
+
+# Run TypeScript type checking
+npm run typecheck
 ```
 
 The app will be available at `http://localhost:4321`

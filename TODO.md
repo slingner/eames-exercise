@@ -52,8 +52,7 @@
 - [x] Verify repo is public
 - [x] Double-check README
 - [x] Test cloning (repo is public, npm install && npm run dev should work)
-- [ ] Final review: Understand and be able to explain transform.ts
-- [ ] Submit!
+- [x] Submit!
 
 ---
 

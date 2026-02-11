@@ -1,6 +1,6 @@
 /**
  * Data Transformation Logic
- * 
+ *
  * Transforms messy Eames Institute sample data into clean, normalized format.
  */
 
@@ -12,9 +12,13 @@ type SampleCreator = string[] | null | string
 type SampleDate = DateClass | number | null | string
 type SampleMaterials = string[] | null | string
 
+/* ============================================================================
+ * PUBLIC API - Main transformation functions
+ * ========================================================================= */
+
 /**
  * Transforms a single raw sample record into a normalized Item
- * 
+ *
  * @param record - Raw data from the sample export
  * @returns Clean, normalized Item with consistent types
  */
@@ -55,13 +59,51 @@ export function transformRecord(record: SampleRecord): Item {
 }
 
 /**
+ * Transforms an array of raw sample records
+ *
+ * @param records - Array of raw sample data
+ * @returns Array of normalized Items
+ */
+export function transformRecords(records: SampleRecord[]): Item[] {
+  return records.map(transformRecord)
+}
+
+/**
+ * Enriches items with related object titles
+ * Looks up each related object ID and adds its title
+ *
+ * @param items - Array of transformed items
+ * @returns Same array with related titles populated
+ */
+export function enrichRelatedItems(items: Item[]): Item[] {
+  // Create a lookup map of ID -> title
+  const titleMap = new Map<string, string>()
+  items.forEach(item => {
+    titleMap.set(item.id, item.title)
+  })
+
+  // Enrich each item's related array with titles
+  items.forEach(item => {
+    item.related.forEach(rel => {
+      rel.title = titleMap.get(rel.objectId) || rel.objectId
+    })
+  })
+
+  return items
+}
+
+/* ============================================================================
+ * NORMALIZATION FUNCTIONS - Handle messy field formats
+ * ========================================================================= */
+
+/**
  * Normalizes the creator field into a consistent string format
- * 
+ *
  * Strategy:
  * 1. If array: join with " and " (e.g., ["Charles Eames", "Ray Eames"] → "Charles Eames and Ray Eames")
  * 2. If string: use as-is
  * 3. If empty array or null: return null
- * 
+ *
  * @param creator - Can be string, array of strings, empty array, or null
  * @returns Normalized creator string or null
  */
@@ -101,13 +143,13 @@ function normalizeCreator(creator: SampleCreator): string | null {
 
 /**
  * Normalizes the date field into a consistent string format
- * 
+ *
  * Strategy:
  * 1. If object with "display": use display value
  * 2. If number: convert to string
  * 3. If string: use as-is
  * 4. If null: return null
- * 
+ *
  * @param date - Can be object, string, number, or null
  * @returns Normalized date string or null
  */
@@ -145,12 +187,12 @@ function normalizeDate(date: SampleDate): string | null {
 
 /**
  * Normalizes the materials field into a consistent string format
- * 
+ *
  * Strategy:
  * 1. If array: join with ", "
  * 2. If string: use as-is
  * 3. If empty array or null: return null
- * 
+ *
  * @param materials - Can be string, array of strings, empty array, or null
  * @returns Normalized materials string or null
  */
@@ -177,12 +219,12 @@ function normalizeMaterials(materials: SampleMaterials): string | null {
 
 /**
  * Normalizes the dimensions field into a consistent string format
- * 
+ *
  * Strategy:
  * 1. If has "display" field: use that
  * 2. Otherwise: build from h/w/d/l/diameter values
  * 3. If no useful data: return null
- * 
+ *
  * @param dimensions - Object with various dimension fields, or null
  * @returns Normalized dimensions string or null
  */
@@ -201,48 +243,28 @@ function normalizeDimensions(dimensions: any): string | null {
 
   // Build from individual dimension fields
   const defaultUnit = dimensions.unit || ''
+
+  // Two formatting styles:
+  // - Standard (h/w/d/l): "H 32 in" (label before value)
+  // - Special (diameter/wingspan): "12 in diameter" (dimensionType after value)
   const dimensionMap = [
     { key: 'h', label: 'H' },
     { key: 'w', label: 'W' },
     { key: 'd', label: 'D' },
     { key: 'l', label: 'L' },
-    { key: 'diameter', prefix: '', suffix: 'diameter' },
-    { key: 'wingspan', prefix: '', suffix: 'wingspan' }
+    { key: 'diameter', dimensionType: 'diameter' },
+    { key: 'wingspan', dimensionType: 'wingspan' }
   ]
 
   const parts = dimensionMap
     .filter(({ key }) => dimensions[key] != null)
-    .map(({ key, label, suffix }) => {
+    .map(({ key, label, dimensionType }) => {
       const value = extractValue(dimensions[key], defaultUnit)
-      return suffix ? `${value} ${suffix}` : `${label} ${value}`
+      return dimensionType ? `${value} ${dimensionType}` : `${label} ${value}`
     })
     .filter(part => part && !part.includes('?')) // Filter out "?" placeholders
 
   return parts.length > 0 ? parts.join(' × ') : null
-}
-
-/**
- * Helper to extract a dimension value (handles both objects and primitives)
- * Examples:
- * - { value: 26, unit: "in" } → "26 in"
- * - "24 in" → "24 in"
- * - 26 → "26"
- * - 26 with defaultUnit "in" → "26 in"
- */
-function extractValue(val: any, defaultUnit: string = ''): string {
-  // Handle object with value/unit properties
-  if (typeof val === 'object' && val != null && val.value != null) {
-    const unit = val.unit || defaultUnit
-    return `${val.value} ${unit}`.trim()
-  }
-
-  // Handle primitive with default unit
-  if (typeof val === 'number') {
-    return defaultUnit ? `${val} ${defaultUnit}`.trim() : String(val)
-  }
-
-  // Handle string (includes units already or is a placeholder)
-  return String(val)
 }
 
 /**
@@ -283,36 +305,6 @@ function normalizeRelated(related: any): RelatedItem[] {
       type: item.type,
       objectId: item.object_id
     }))
-}
-
-/**
- * Helper to normalize a string value to null if empty
- */
-function normalizeString(value: string | null): string | null {
-  if (value == null || value.trim() === '') {
-    return null
-  }
-  return value.trim()
-}
-
-/**
- * Transforms an array of raw sample records
- *
- * @param records - Array of raw sample data
- * @returns Array of normalized Items
- */
-export function transformRecords(records: SampleRecord[]): Item[] {
-  return records.map(transformRecord)
-}
-
-/**
- * Normalizes an array field (filters out empty arrays)
- */
-function normalizeArray(value: any): any[] | null {
-  if (!Array.isArray(value) || value.length === 0) {
-    return null
-  }
-  return value
 }
 
 /**
@@ -410,26 +402,50 @@ function normalizeEdition(value: any): { number?: any; notes?: string } | null {
   return Object.keys(edition).length > 0 ? edition : null
 }
 
+/* ============================================================================
+ * HELPER FUNCTIONS - Generic utilities used by normalizers
+ * ========================================================================= */
+
 /**
- * Enriches items with related object titles
- * Looks up each related object ID and adds its title
- *
- * @param items - Array of transformed items
- * @returns Same array with related titles populated
+ * Helper to extract a dimension value (handles both objects and primitives)
+ * Examples:
+ * - { value: 26, unit: "in" } → "26 in"
+ * - "24 in" → "24 in"
+ * - 26 → "26"
+ * - 26 with defaultUnit "in" → "26 in"
  */
-export function enrichRelatedItems(items: Item[]): Item[] {
-  // Create a lookup map of ID -> title
-  const titleMap = new Map<string, string>()
-  items.forEach(item => {
-    titleMap.set(item.id, item.title)
-  })
+function extractValue(val: any, defaultUnit: string = ''): string {
+  // Handle object with value/unit properties
+  if (typeof val === 'object' && val != null && val.value != null) {
+    const unit = val.unit || defaultUnit
+    return `${val.value} ${unit}`.trim()
+  }
 
-  // Enrich each item's related array with titles
-  items.forEach(item => {
-    item.related.forEach(rel => {
-      rel.title = titleMap.get(rel.objectId) || rel.objectId
-    })
-  })
+  // Handle primitive with default unit
+  if (typeof val === 'number') {
+    return defaultUnit ? `${val} ${defaultUnit}`.trim() : String(val)
+  }
 
-  return items
+  // Handle string (includes units already or is a placeholder)
+  return String(val)
+}
+
+/**
+ * Helper to normalize a string value to null if empty
+ */
+function normalizeString(value: string | null): string | null {
+  if (value == null || value.trim() === '') {
+    return null
+  }
+  return value.trim()
+}
+
+/**
+ * Normalizes an array field (filters out empty arrays)
+ */
+function normalizeArray(value: any): any[] | null {
+  if (!Array.isArray(value) || value.length === 0) {
+    return null
+  }
+  return value
 }
