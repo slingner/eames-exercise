@@ -34,7 +34,7 @@ The app will be available at `http://localhost:4321`
 
 **Data Transformation** - The core logic in `/src/lib/transform.ts` normalizes inconsistent data:
 - Handles 4 different formats for creator, date, and materials fields
-- Normalizes 14 different dimension structures into readable strings
+- Normalizes many different dimension structures into readable strings
 - Converts snake_case flags to camelCase
 - Provides fallbacks for missing data
 
