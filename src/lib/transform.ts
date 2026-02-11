@@ -313,7 +313,7 @@ function normalizeRelated(related: SampleRelated): Item['related'] {
     .filter(item => item && item.type && item.object_id)
     .map(item => ({
       type: item.type,
-      objectId: item.object_id! // Non-null assertion safe due to filter above
+      objectId: item.object_id as string // Safe: filtered for truthiness above
     }))
 }
 
@@ -427,8 +427,13 @@ function normalizeEdition(value: SampleEdition): Item['edition'] {
  * - 26 with defaultUnit "in" → "26 in"
  */
 function extractValue(val: DimensionValue | number | string | null | undefined, defaultUnit: string = ''): string {
+  // Handle null/undefined early (shouldn't occur due to upstream filter, but guard for safety)
+  if (val == null) {
+    return ''
+  }
+
   // Handle object with value/unit properties
-  if (typeof val === 'object' && val != null && val.value != null) {
+  if (typeof val === 'object' && val.value != null) {
     const unit = val.unit || defaultUnit
     return `${val.value} ${unit}`.trim()
   }

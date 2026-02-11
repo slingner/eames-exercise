@@ -22,7 +22,10 @@ const formatValue = (value: unknown): string | null => {
   }
   if (typeof value === 'object') {
     // Handle nested objects like location, geo, series, edition
-    const parts = Object.values(value).filter(Boolean)
+    // Format as "key: value" pairs for better readability
+    const parts = Object.entries(value)
+      .filter(([_, v]) => v != null)
+      .map(([k, v]) => `${k}: ${v}`)
     return parts.length > 0 ? parts.join(', ') : null
   }
   return String(value)
