@@ -10,9 +10,6 @@ npm install
 
 # Run the development server
 npm run dev
-
-# Run TypeScript type checking
-npm run typecheck
 ```
 
 The app will be available at `http://localhost:4321`
@@ -33,7 +30,7 @@ The app will be available at `http://localhost:4321`
 ## Key Design Decisions
 
 **Data Transformation** - The core logic in `/src/lib/transform.ts` normalizes inconsistent data:
-- Handles 4 different formats for creator, date, and materials fields
+- Handles multiple inconsistent formats for creator, date, materials, and dimensions fields
 - Normalizes many different dimension structures into readable strings
 - Converts snake_case flags to camelCase
 - Provides fallbacks for missing data
