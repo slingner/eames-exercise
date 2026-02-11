@@ -27,7 +27,9 @@ const formatValue = (value: any): string | null => {
   return String(value)
 }
 
-// Flag configurations 
+// Flag configurations
+// 'as const' makes this array readonly and narrows types to literal values
+// Without it: key would be type 'string', with it: key is 'possibleDuplicate' | 'prototype' | ...
 const flagConfigs = [
   { key: 'possibleDuplicate', label: 'Possible Duplicate', className: 'duplicate' },
   { key: 'prototype', label: 'Prototype', className: 'prototype' },
@@ -38,6 +40,8 @@ const flagConfigs = [
   { key: 'missingDimensions', label: 'Missing Dimensions', className: 'missing' },
 ] as const
 
+// 'as keyof typeof item.flags' tells TypeScript that flag.key is a valid property name of ItemFlags
+// This allows safe dynamic property access (e.g., item.flags['possibleDuplicate'])
 const activeFlags = flagConfigs.filter(flag => item.flags?.[flag.key as keyof typeof item.flags])
 
 // Detail fields
@@ -70,6 +74,8 @@ const additionalFields = [
   { key: 'variants', label: 'Variants', format: (v: any[]) => `${v.length} variant(s)` },
   { key: 'provenance', label: 'Provenance', format: (v: any[]) => `${v.length} record(s)` },
 ].filter(field => {
+  // Type assertion needed: TypeScript can't verify field.key is a valid Item property at compile time
+  // This is safe because we control the field definitions above
   const value = (item as any)[field.key]
   return value != null && (!Array.isArray(value) || value.length > 0)
 })
@@ -128,6 +134,7 @@ const additionalFields = [
           </div>
           <dl class="additional-fields">
             {additionalFields.map(field => {
+              // Type assertion needed: dynamic property access by key name
               const value = (item as any)[field.key]
               const displayValue = field.format ? field.format(value) : formatValue(value)
               return displayValue ? (

@@ -38,23 +38,23 @@ export function transformRecord(record: SampleRecord): Item {
     related: normalizeRelated(record.related),
 
     // Additional fields (for modal)
-    notes: normalizeArray((record as any).notes),
-    externalIds: normalizeExternalIds((record as any).external_ids),
-    keywords: normalizeArray((record as any).keywords),
-    description: normalizeString((record as any).description),
-    rights: normalizeRights((record as any).rights),
-    variants: normalizeArray((record as any).variants),
-    tags: normalizeArray((record as any).tags),
-    creditLine: normalizeString((record as any).credit_line),
-    condition: normalizeString((record as any).condition),
-    geo: normalizeGeo((record as any).geo),
-    inventoryLocation: (record as any).inventory_location ?? null,
-    transcription: normalizeString((record as any).transcription),
-    series: normalizeSeries((record as any).series),
-    location: normalizeLocation((record as any).location),
-    edition: normalizeEdition((record as any).edition),
-    status: normalizeString((record as any).status),
-    provenance: normalizeArray((record as any).provenance),
+    notes: normalizeArray(record.notes),
+    externalIds: normalizeExternalIds(record.external_ids),
+    keywords: normalizeArray(record.keywords),
+    description: normalizeString(record.description),
+    rights: normalizeRights(record.rights),
+    variants: normalizeArray(record.variants),
+    tags: normalizeArray(record.tags),
+    creditLine: normalizeString(record.credit_line),
+    condition: normalizeString(record.condition),
+    geo: normalizeGeo(record.geo),
+    inventoryLocation: record.inventory_location ?? null,
+    transcription: normalizeString(record.transcription),
+    series: normalizeSeries(record.series),
+    location: normalizeLocation(record.location),
+    edition: normalizeEdition(record.edition),
+    status: normalizeString(record.status),
+    provenance: normalizeArray(record.provenance),
   }
 }
 
@@ -431,9 +431,10 @@ function extractValue(val: any, defaultUnit: string = ''): string {
 }
 
 /**
- * Helper to normalize a string value to null if empty
+ * Helper to normalize a string value to null if empty or undefined
+ * Accepts undefined from TypeScript optional properties, returns null for consistency
  */
-function normalizeString(value: string | null): string | null {
+function normalizeString(value: string | null | undefined): string | null {
   if (value == null || value.trim() === '') {
     return null
   }
@@ -441,9 +442,10 @@ function normalizeString(value: string | null): string | null {
 }
 
 /**
- * Normalizes an array field (filters out empty arrays)
+ * Normalizes an array field (filters out empty arrays and undefined)
+ * Accepts undefined from TypeScript optional properties, returns null for consistency
  */
-function normalizeArray(value: any): any[] | null {
+function normalizeArray(value: any[] | null | undefined): any[] | null {
   if (!Array.isArray(value) || value.length === 0) {
     return null
   }
