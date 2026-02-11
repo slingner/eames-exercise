@@ -257,6 +257,7 @@ function normalizeFlags(flags: any): ItemFlags | null {
   if (flags.possible_duplicate === true) normalized.possibleDuplicate = true
   if (flags.prototype === true) normalized.prototype = true
   if (flags.needs_research === true) normalized.needsResearch = true
+  if (flags.needs_review === true) normalized.needsReview = true
   if (flags.attribution_uncertain === true) normalized.attributionUncertain = true
   if (flags.materials_incomplete === true) normalized.materialsIncomplete = true
   if (flags.missing_dimensions === true) normalized.missingDimensions = true

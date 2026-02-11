@@ -21,6 +21,7 @@ export interface ItemFlags {
   possibleDuplicate?: boolean
   prototype?: boolean
   needsResearch?: boolean
+  needsReview?: boolean
   attributionUncertain?: boolean
   materialsIncomplete?: boolean
   missingDimensions?: boolean
