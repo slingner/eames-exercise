@@ -6,13 +6,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "analyze": "tsx src/scripts/analyze-data.ts"
+    "astro": "astro"
   },
   "dependencies": {
     "astro": "^5.17.1"
   },
   "devDependencies": {
+    "quicktype": "^23.2.6",
     "tsx": "^4.21.0"
   }
 }
