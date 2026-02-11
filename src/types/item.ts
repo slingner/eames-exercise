@@ -1,6 +1,6 @@
 /**
  * Type definitions for NORMALIZED data (after transformation)
- * 
+ *
  * This is the clean, consistent data structure we want to work with.
  * All fields have predictable types - no more checking multiple formats!
  */
@@ -12,6 +12,17 @@ export interface RelatedItem {
   type: string       // e.g., "set-member", "derived-from", "paired-with"
   objectId: string   // ID of related object
   title?: string     // Title of related object (resolved after transform)
+}
+
+/**
+ * Object variant information
+ */
+export interface Variant {
+  color?: string | null
+  shell?: string | null
+  finish?: string | null
+  upholstery?: string | null
+  notes?: string | null
 }
 
 /**
@@ -56,7 +67,7 @@ export interface Item {
   keywords: string[] | null      // searchable keywords
   description: string | null     // detailed description
   rights: string | null          // rights/copyright info
-  variants: any[] | null         // object variants
+  variants: Variant[] | null     // object variants
   tags: string[] | null          // categorical tags
   creditLine: string | null      // donor/acquisition credit
   condition: string | null       // condition report
@@ -65,7 +76,7 @@ export interface Item {
   transcription: string | null   // text transcription
   series: { title?: string; type?: string } | null // series info
   location: { site?: string; shelf?: string } | null // storage location
-  edition: { number?: any; notes?: string } | null // edition info
+  edition: { number?: unknown; notes?: string } | null // edition info (number type varies in source data)
   status: string | null          // record status
-  provenance: any[] | null       // ownership history
+  provenance: unknown[] | null   // ownership history (structure varies in source data)
 }

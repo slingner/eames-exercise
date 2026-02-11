@@ -4,7 +4,7 @@
  * Transforms messy Eames Institute sample data into clean, normalized format.
  */
 
-import type { Record as SampleRecord } from '../scripts/quicktype-generated'
+import type { Record as SampleRecord, L as DimensionValue } from '../scripts/quicktype-generated'
 import type { Item, ItemFlags } from '../types/item'
 
 // Type aliases for readability - derived from the quicktype-generated Record type
@@ -12,6 +12,15 @@ import type { Item, ItemFlags } from '../types/item'
 type SampleCreator = SampleRecord['creator']
 type SampleDate = SampleRecord['date']
 type SampleMaterials = SampleRecord['materials']
+type SampleDimensions = SampleRecord['dimensions']
+type SampleFlags = SampleRecord['flags']
+type SampleRelated = SampleRecord['related']
+type SampleExternalIds = SampleRecord['external_ids']
+type SampleRights = SampleRecord['rights']
+type SampleGeo = SampleRecord['geo']
+type SampleSeries = SampleRecord['series']
+type SampleLocation = SampleRecord['location']
+type SampleEdition = SampleRecord['edition']
 
 /* ============================================================================
  * PUBLIC API - Main transformation functions
@@ -74,7 +83,7 @@ export function transformRecords(records: SampleRecord[]): Item[] {
  * Looks up each related object ID and adds its title
  *
  * @param items - Array of transformed items
- * @returns Same array with related titles populated
+ * @returns New array with related titles populated (does not mutate input)
  */
 export function enrichRelatedItems(items: Item[]): Item[] {
   // Create a lookup map of ID -> title
@@ -83,14 +92,14 @@ export function enrichRelatedItems(items: Item[]): Item[] {
     titleMap.set(item.id, item.title)
   })
 
-  // Enrich each item's related array with titles
-  items.forEach(item => {
-    item.related.forEach(rel => {
-      rel.title = titleMap.get(rel.objectId) || rel.objectId
-    })
-  })
-
-  return items
+  // Return new items with enriched related arrays
+  return items.map(item => ({
+    ...item,
+    related: item.related.map(rel => ({
+      ...rel,
+      title: titleMap.get(rel.objectId) || rel.objectId
+    }))
+  }))
 }
 
 /* ============================================================================
@@ -229,7 +238,7 @@ function normalizeMaterials(materials: SampleMaterials): Item['materials'] {
  * @param dimensions - Object with various dimension fields, or null
  * @returns Normalized dimensions string or null
  */
-function normalizeDimensions(dimensions: any): Item['dimensions'] {
+function normalizeDimensions(dimensions: SampleDimensions): Item['dimensions'] {
   if (!dimensions || typeof dimensions !== 'object' || Object.keys(dimensions).length === 0) {
     return null
   }
@@ -249,12 +258,12 @@ function normalizeDimensions(dimensions: any): Item['dimensions'] {
   // - Standard (h/w/d/l): "H 32 in" (label before value)
   // - Special (diameter/wingspan): "12 in diameter" (dimensionType after value)
   const dimensionMap = [
-    { key: 'h', label: 'H' },
-    { key: 'w', label: 'W' },
-    { key: 'd', label: 'D' },
-    { key: 'l', label: 'L' },
-    { key: 'diameter', dimensionType: 'diameter' },
-    { key: 'wingspan', dimensionType: 'wingspan' }
+    { key: 'h' as const, label: 'H' },
+    { key: 'w' as const, label: 'W' },
+    { key: 'd' as const, label: 'D' },
+    { key: 'l' as const, label: 'L' },
+    { key: 'diameter' as const, dimensionType: 'diameter' },
+    { key: 'wingspan' as const, dimensionType: 'wingspan' }
   ]
 
   const parts = dimensionMap
@@ -272,7 +281,7 @@ function normalizeDimensions(dimensions: any): Item['dimensions'] {
  * Normalizes the flags field into a consistent format
  * Converts snake_case to camelCase and filters out any non-boolean flags
  */
-function normalizeFlags(flags: any): Item['flags'] {
+function normalizeFlags(flags: SampleFlags): Item['flags'] {
   if (!flags || typeof flags !== 'object') {
     return null
   }
@@ -295,7 +304,7 @@ function normalizeFlags(flags: any): Item['flags'] {
 /**
  * Normalizes the related field into a consistent array format
  */
-function normalizeRelated(related: any): Item['related'] {
+function normalizeRelated(related: SampleRelated): Item['related'] {
   if (!Array.isArray(related) || related.length === 0) {
     return []
   }
@@ -304,22 +313,23 @@ function normalizeRelated(related: any): Item['related'] {
     .filter(item => item && item.type && item.object_id)
     .map(item => ({
       type: item.type,
-      objectId: item.object_id
+      objectId: item.object_id! // Non-null assertion safe due to filter above
     }))
 }
 
 /**
  * Normalizes external IDs object (filters out all-null objects)
  */
-function normalizeExternalIds(value: any): Item['externalIds'] {
+function normalizeExternalIds(value: SampleExternalIds): Item['externalIds'] {
   if (!value || typeof value !== 'object') {
     return null
   }
 
   const filtered: Record<string, string> = {}
   Object.keys(value).forEach(key => {
-    if (value[key] != null && value[key] !== '') {
-      filtered[key] = String(value[key])
+    const typedKey = key as keyof SampleExternalIds
+    if (value[typedKey] != null && value[typedKey] !== '') {
+      filtered[key] = String(value[typedKey])
     }
   })
 
@@ -329,7 +339,7 @@ function normalizeExternalIds(value: any): Item['externalIds'] {
 /**
  * Normalizes rights field (can be string or object)
  */
-function normalizeRights(value: any): Item['rights'] {
+function normalizeRights(value: SampleRights): Item['rights'] {
   if (!value) return null
 
   if (typeof value === 'string') {
@@ -346,7 +356,7 @@ function normalizeRights(value: any): Item['rights'] {
 /**
  * Normalizes geo field
  */
-function normalizeGeo(value: any): Item['geo'] {
+function normalizeGeo(value: SampleGeo): Item['geo'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -361,7 +371,7 @@ function normalizeGeo(value: any): Item['geo'] {
 /**
  * Normalizes series field
  */
-function normalizeSeries(value: any): Item['series'] {
+function normalizeSeries(value: SampleSeries): Item['series'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -376,7 +386,7 @@ function normalizeSeries(value: any): Item['series'] {
 /**
  * Normalizes location field
  */
-function normalizeLocation(value: any): Item['location'] {
+function normalizeLocation(value: SampleLocation): Item['location'] {
   if (!value || typeof value !== 'object') {
     return null
   }
@@ -391,12 +401,12 @@ function normalizeLocation(value: any): Item['location'] {
 /**
  * Normalizes edition field
  */
-function normalizeEdition(value: any): Item['edition'] {
+function normalizeEdition(value: SampleEdition): Item['edition'] {
   if (!value || typeof value !== 'object') {
     return null
   }
 
-  const edition: { number?: any; notes?: string } = {}
+  const edition: { number?: unknown; notes?: string } = {}
   if (value.number != null) edition.number = value.number
   if (value.notes) edition.notes = value.notes
 
@@ -416,7 +426,7 @@ function normalizeEdition(value: any): Item['edition'] {
  * - 26 → "26"
  * - 26 with defaultUnit "in" → "26 in"
  */
-function extractValue(val: any, defaultUnit: string = ''): string {
+function extractValue(val: DimensionValue | number | string | null | undefined, defaultUnit: string = ''): string {
   // Handle object with value/unit properties
   if (typeof val === 'object' && val != null && val.value != null) {
     const unit = val.unit || defaultUnit
@@ -446,8 +456,11 @@ function normalizeString(value: string | null | undefined): string | null {
 /**
  * Normalizes an array field (filters out empty arrays and undefined)
  * Accepts undefined from TypeScript optional properties, returns null for consistency
+ *
+ * Generic function preserves array element types from input to output.
+ * For example: string[] stays string[], Variant[] stays Variant[]
  */
-function normalizeArray(value: any[] | null | undefined): any[] | null {
+function normalizeArray<T>(value: T[] | null | undefined): T[] | null {
   if (!Array.isArray(value) || value.length === 0) {
     return null
   }

@@ -5,7 +5,7 @@
  * Displays a single collection item in a card format.
  * Shows all the normalized data fields we transformed.
  */
-import type { Item } from '../types/item'
+import type { Item, Variant } from '../types/item'
 
 interface Props {
   item: Item
@@ -14,7 +14,8 @@ interface Props {
 const { item } = Astro.props
 
 // Helper to format field values
-const formatValue = (value: any): string | null => {
+// Handles the various types that Item fields can contain
+const formatValue = (value: unknown): string | null => {
   if (value == null) return null
   if (Array.isArray(value)) {
     return value.length > 0 ? value.join(', ') : null
@@ -55,10 +56,11 @@ const detailFields = [
 ]
 
 // Additional fields to display (only if present)
+// Some fields have custom format functions to display complex data nicely
 const additionalFields = [
   { key: 'keywords', label: 'Keywords' },
   { key: 'notes', label: 'Notes' },
-  { key: 'externalIds', label: 'External IDs', format: (v: any) => Object.entries(v).map(([k, val]) => `${k}: ${val}`).join(', ') },
+  { key: 'externalIds', label: 'External IDs', format: (v: unknown) => Object.entries(v as Record<string, string>).map(([k, val]) => `${k}: ${val}`).join(', ') },
   { key: 'description', label: 'Description' },
   { key: 'tags', label: 'Tags' },
   { key: 'creditLine', label: 'Credit Line' },
@@ -71,12 +73,11 @@ const additionalFields = [
   { key: 'transcription', label: 'Transcription' },
   { key: 'inventoryLocation', label: 'Inventory Location' },
   { key: 'status', label: 'Status' },
-  { key: 'variants', label: 'Variants', format: (v: any[]) => `${v.length} variant(s)` },
-  { key: 'provenance', label: 'Provenance', format: (v: any[]) => `${v.length} record(s)` },
+  { key: 'variants', label: 'Variants', format: (v: unknown) => `${(v as Variant[]).length} variant(s)` },
+  { key: 'provenance', label: 'Provenance', format: (v: unknown) => `${(v as unknown[]).length} record(s)` },
 ].filter(field => {
-  // Type assertion needed: TypeScript can't verify field.key is a valid Item property at compile time
-  // This is safe because we control the field definitions above
-  const value = (item as any)[field.key]
+  const value = item[field.key as keyof Item]
+  // Only show fields that have data (non-null, non-empty arrays)
   return value != null && (!Array.isArray(value) || value.length > 0)
 })
 ---
@@ -135,8 +136,8 @@ const additionalFields = [
           </div>
           <dl class="additional-fields">
             {additionalFields.map(field => {
-              // Type assertion needed: dynamic property access by key name
-              const value = (item as any)[field.key]
+              const value = item[field.key as keyof Item]
+              // Use custom format if provided, otherwise use default formatter
               const displayValue = field.format ? field.format(value) : formatValue(value)
               return displayValue ? (
                 <div class="additional-field">
