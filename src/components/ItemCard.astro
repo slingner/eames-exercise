@@ -12,22 +12,68 @@ interface Props {
 }
 
 const { item } = Astro.props
+
+// Helper to format field values
+const formatValue = (value: any): string | null => {
+  if (value == null) return null
+  if (Array.isArray(value)) {
+    return value.length > 0 ? value.join(', ') : null
+  }
+  if (typeof value === 'object') {
+    // Handle nested objects like location, geo, series, edition
+    const parts = Object.values(value).filter(Boolean)
+    return parts.length > 0 ? parts.join(', ') : null
+  }
+  return String(value)
+}
+
+// Additional fields to display (only if present)
+const additionalFields = [
+  { key: 'keywords', label: 'Keywords' },
+  { key: 'notes', label: 'Notes' },
+  { key: 'externalIds', label: 'External IDs', format: (v: any) => Object.entries(v).map(([k, val]) => `${k}: ${val}`).join(', ') },
+  { key: 'description', label: 'Description' },
+  { key: 'tags', label: 'Tags' },
+  { key: 'creditLine', label: 'Credit Line' },
+  { key: 'condition', label: 'Condition' },
+  { key: 'location', label: 'Location' },
+  { key: 'geo', label: 'Geographic Origin' },
+  { key: 'series', label: 'Series' },
+  { key: 'edition', label: 'Edition' },
+  { key: 'rights', label: 'Rights' },
+  { key: 'transcription', label: 'Transcription' },
+  { key: 'inventoryLocation', label: 'Inventory Location' },
+  { key: 'status', label: 'Status' },
+  { key: 'variants', label: 'Variants', format: (v: any[]) => `${v.length} variant(s)` },
+  { key: 'provenance', label: 'Provenance', format: (v: any[]) => `${v.length} record(s)` },
+].filter(field => {
+  const value = (item as any)[field.key]
+  return value != null && (!Array.isArray(value) || value.length > 0)
+})
 ---
 
 <div class="card">
-  <h2>{item.title}</h2>
-
-  {item.creator && (
-    <p class="creator">{item.creator}</p>
-  )}
-
-  <dl class="details">
-    {item.date && (
-      <div class="detail">
-        <dt>Date:</dt>
-        <dd>{item.date}</dd>
+  <div class="card-header">
+    <h2 class:list={{ unknown: item.title === 'Unknown Title' }}>{item.title}</h2>
+    {item.flags && (
+      <div class="flags">
+        {item.flags.possibleDuplicate && <span class="flag duplicate">Possible Duplicate</span>}
+        {item.flags.prototype && <span class="flag prototype">Prototype</span>}
+        {item.flags.needsResearch && <span class="flag research">Needs Research</span>}
+        {item.flags.attributionUncertain && <span class="flag uncertain">Attribution Uncertain</span>}
       </div>
     )}
+  </div>
+
+  <p class="creator" class:list={{ unknown: !item.creator }}>
+    {item.creator || 'Unknown'}
+  </p>
+
+  <dl class="details">
+    <div class="detail">
+      <dt>Date:</dt>
+      <dd class:list={{ unknown: !item.date }}>{item.date || 'Unknown'}</dd>
+    </div>
 
     <div class="detail">
       <dt>Type:</dt>
@@ -39,31 +85,98 @@ const { item } = Astro.props
       <dd>{item.department}</dd>
     </div>
 
-    {item.materials && (
-      <div class="detail">
-        <dt>Materials:</dt>
-        <dd>{item.materials}</dd>
-      </div>
-    )}
+    <div class="detail">
+      <dt>Materials:</dt>
+      <dd class:list={{ unknown: !item.materials }}>{item.materials || 'Unknown'}</dd>
+    </div>
 
-    {item.dimensions && (
-      <div class="detail">
-        <dt>Dimensions:</dt>
-        <dd>{item.dimensions}</dd>
-      </div>
-    )}
+    <div class="detail">
+      <dt>Dimensions:</dt>
+      <dd class:list={{ unknown: !item.dimensions }}>{item.dimensions || 'Unknown'}</dd>
+    </div>
 
-    {item.accessionNumber && (
-      <div class="detail">
-        <dt>Accession:</dt>
-        <dd>{item.accessionNumber}</dd>
-      </div>
-    )}
+    <div class="detail">
+      <dt>Accession:</dt>
+      <dd class:list={{ unknown: !item.accessionNumber }}>{item.accessionNumber || 'Unknown'}</dd>
+    </div>
   </dl>
+
+  {item.related && item.related.length > 0 && (
+    <div class="related">
+      <strong>Related:</strong>
+      <ul>
+        {item.related.map(rel => (
+          <li>
+            {rel.title || rel.objectId}
+            <span class="relation-type">({rel.type})</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {additionalFields.length > 0 && (
+    <>
+      <button class="show-more-btn" data-item-id={item.id}>
+        Additional Information
+      </button>
+
+      <dialog class="modal" data-modal-id={item.id}>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>{item.title}</h3>
+            <button class="modal-close" aria-label="Close">&times;</button>
+          </div>
+          <dl class="additional-fields">
+            {additionalFields.map(field => {
+              const value = (item as any)[field.key]
+              const displayValue = field.format ? field.format(value) : formatValue(value)
+              return displayValue ? (
+                <div class="additional-field">
+                  <dt>{field.label}:</dt>
+                  <dd>{displayValue}</dd>
+                </div>
+              ) : null
+            })}
+          </dl>
+        </div>
+      </dialog>
+    </>
+  )}
 </div>
+
+<script>
+  // Event delegation - ONE listener for all interactions
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+
+    // Open modal when "Additional Information" button clicked
+    if (target.matches('.show-more-btn') || target.closest('.show-more-btn')) {
+      const btn = target.closest('.show-more-btn') as HTMLElement
+      const itemId = btn?.dataset.itemId
+      if (itemId) {
+        const modal = document.querySelector(`[data-modal-id="${itemId}"]`) as HTMLDialogElement
+        modal?.showModal()
+      }
+    }
+
+    // Close modal when X button clicked
+    if (target.matches('.modal-close') || target.closest('.modal-close')) {
+      const modal = target.closest('dialog') as HTMLDialogElement
+      modal?.close()
+    }
+
+    // Close modal when clicking backdrop
+    if (target.matches('dialog.modal')) {
+      (target as HTMLDialogElement).close()
+    }
+  })
+</script>
 
 <style>
   .card {
+    display: flex;
+    flex-direction: column;
     background: var(--color-card-bg);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
@@ -76,16 +189,74 @@ const { item } = Astro.props
     box-shadow: var(--card-shadow-hover);
   }
 
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    align-items: flex-start;
+  }
+
+  .flag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .flag.duplicate {
+    background: var(--flag-duplicate-bg);
+    color: var(--flag-duplicate-text);
+    border: 1px solid var(--flag-duplicate-border);
+  }
+
+  .flag.prototype {
+    background: var(--flag-prototype-bg);
+    color: var(--flag-prototype-text);
+    border: 1px solid var(--flag-prototype-border);
+  }
+
+  .flag.research {
+    background: var(--flag-research-bg);
+    color: var(--flag-research-text);
+    border: 1px solid var(--flag-research-border);
+  }
+
+  .flag.uncertain {
+    background: var(--flag-uncertain-bg);
+    color: var(--flag-uncertain-text);
+    border: 1px solid var(--flag-uncertain-border);
+  }
+
   h2 {
     margin: 0 0 var(--space-xs) 0;
     font-size: var(--font-size-lg);
     color: var(--color-text-primary);
   }
 
+  h2.unknown {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
   .creator {
     color: var(--color-text-secondary);
     font-style: italic;
     margin: 0 0 var(--space-sm) 0;
+  }
+
+  .creator.unknown {
+    color: var(--color-text-muted);
+    font-style: italic;
   }
 
   .details {
@@ -106,6 +277,135 @@ const { item } = Astro.props
   }
 
   dd {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+
+  dd.unknown {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .related {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+  }
+
+  .related strong {
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .related ul {
+    margin: var(--space-xs) 0 0 0;
+    padding-left: 1.2rem;
+    color: var(--color-text-secondary);
+  }
+
+  .related li {
+    margin-bottom: 0.25rem;
+  }
+
+  .relation-type {
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+  }
+
+  .show-more-btn {
+    width: 100%;
+    margin-top: auto;
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .show-more-btn:hover {
+    background: var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .modal {
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+  }
+
+  .modal-content {
+    padding: var(--space-lg);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .modal-header h3 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    transition: all 0.2s;
+  }
+
+  .modal-close:hover {
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+  }
+
+  .additional-fields {
+    margin: var(--space-sm) 0 0 0;
+  }
+
+  .additional-field {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-size-sm);
+    padding-left: var(--space-sm);
+  }
+
+  .additional-field dt {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    min-width: 130px;
+  }
+
+  .additional-field dd {
     margin: 0;
     color: var(--color-text-secondary);
   }

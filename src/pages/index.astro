@@ -6,7 +6,7 @@
  * and displays it in a simple grid layout.
  */
 import ItemCard from '../components/ItemCard.astro'
-import { transformRecords } from '../lib/transform'
+import { transformRecords, enrichRelatedItems } from '../lib/transform'
 import type { SampleRecord } from '../types/sample'
 
 // Load the raw sample data
@@ -19,6 +19,9 @@ try {
 
   // Transform the messy data into clean, normalized items
   items = transformRecords(records)
+
+  // Enrich related items with titles for better display
+  items = enrichRelatedItems(items)
 } catch (e) {
   error = e instanceof Error ? e.message : 'Failed to load collection data'
   console.error('Error loading collection:', e)
