@@ -2,12 +2,15 @@
  * Data Transformation Logic
  * 
  * Transforms messy Eames Institute sample data into clean, normalized format.
- * This is the core of the exercise - demonstrating how to handle inconsistent
- * real-world data and produce a predictable structure.
  */
 
-import type { SampleRecord, SampleCreator, SampleDate, SampleMaterials } from '../types/sample'
+import type { Record as SampleRecord, DateClass } from '../scripts/quicktype-generated'
 import type { Item, ItemFlags, RelatedItem } from '../types/item'
+
+// Type aliases for the messy union types in the raw data
+type SampleCreator = string[] | null | string
+type SampleDate = DateClass | number | null | string
+type SampleMaterials = string[] | null | string
 
 /**
  * Transforms a single raw sample record into a normalized Item

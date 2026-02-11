@@ -36,7 +36,8 @@ The app will be available at `http://localhost:4321`
 - Provides fallbacks for missing data
 
 **TypeScript Types** - Two distinct type sets:
-- `SampleRecord` - Generated with [quicktype](https://quicktype.io/) from JSON for accuracy
+- Raw types - Generated with [quicktype](https://quicktype.io/) from JSON for accuracy
+  - Regenerate: `npx quicktype src/data/collection.json -o src/scripts/quicktype-generated.ts`
 - `Item` - Manually designed clean output structure
 - This separation clarifies the transformation pipeline
 
