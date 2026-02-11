@@ -1,0 +1,112 @@
+---
+/**
+ * ItemCard Component
+ *
+ * Displays a single collection item in a card format.
+ * Shows all the normalized data fields we transformed.
+ */
+import type { Item } from '../types/item'
+
+interface Props {
+  item: Item
+}
+
+const { item } = Astro.props
+---
+
+<div class="card">
+  <h2>{item.title}</h2>
+
+  {item.creator && (
+    <p class="creator">{item.creator}</p>
+  )}
+
+  <dl class="details">
+    {item.date && (
+      <div class="detail">
+        <dt>Date:</dt>
+        <dd>{item.date}</dd>
+      </div>
+    )}
+
+    <div class="detail">
+      <dt>Type:</dt>
+      <dd>{item.objectType}</dd>
+    </div>
+
+    <div class="detail">
+      <dt>Department:</dt>
+      <dd>{item.department}</dd>
+    </div>
+
+    {item.materials && (
+      <div class="detail">
+        <dt>Materials:</dt>
+        <dd>{item.materials}</dd>
+      </div>
+    )}
+
+    {item.dimensions && (
+      <div class="detail">
+        <dt>Dimensions:</dt>
+        <dd>{item.dimensions}</dd>
+      </div>
+    )}
+
+    {item.accessionNumber && (
+      <div class="detail">
+        <dt>Accession:</dt>
+        <dd>{item.accessionNumber}</dd>
+      </div>
+    )}
+  </dl>
+</div>
+
+<style>
+  .card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-md);
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  h2 {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+  }
+
+  .creator {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  .details {
+    margin: 0;
+  }
+
+  .detail {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-size-sm);
+  }
+
+  dt {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-secondary);
+    min-width: 90px;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+</style>

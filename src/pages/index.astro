@@ -1,17 +1,122 @@
 ---
+/**
+ * Main Collection Display Page
+ *
+ * Loads the sample data, transforms it using our normalization logic,
+ * and displays it in a simple grid layout.
+ */
+import ItemCard from '../components/ItemCard.astro'
+import { transformRecords } from '../lib/transform'
+import type { SampleRecord } from '../types/sample'
 
+// Load the raw sample data
+let items = []
+let error = null
+
+try {
+  const rawData = await import('../data/collection.json')
+  const records = rawData.default as SampleRecord[]
+
+  // Transform the messy data into clean, normalized items
+  items = transformRecords(records)
+} catch (e) {
+  error = e instanceof Error ? e.message : 'Failed to load collection data'
+  console.error('Error loading collection:', e)
+}
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Eames Institute Collection</title>
+  </head>
+  <body>
+    <header>
+      <h1>Eames Institute Collection</h1>
+      <p>Sample collection items from the Eames Institute archive</p>
+    </header>
+
+    <main>
+      {error ? (
+        <div class="error">
+          <p>⚠️ Error loading collection: {error}</p>
+        </div>
+      ) : items.length === 0 ? (
+        <div class="empty">
+          <p>No items found in the collection.</p>
+        </div>
+      ) : (
+        <div class="grid">
+          {items.map((item) => (
+            <ItemCard item={item} />
+          ))}
+        </div>
+      )}
+    </main>
+  </body>
 </html>
+
+<style>
+  @import '../styles/tokens.css';
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+  }
+
+  header {
+    background: var(--color-card-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-lg) var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  header h1 {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: 2rem;
+    color: var(--color-text-primary);
+  }
+
+  header p {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-md) var(--space-lg);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .error,
+  .empty {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-md);
+    text-align: center;
+    color: var(--color-text-secondary);
+  }
+
+  .error {
+    border-color: #f44336;
+    color: #f44336;
+  }
+</style>
