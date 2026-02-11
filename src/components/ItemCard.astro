@@ -27,6 +27,29 @@ const formatValue = (value: any): string | null => {
   return String(value)
 }
 
+// Flag configurations - map over these instead of hardcoding each flag
+const flagConfigs = [
+  { key: 'possibleDuplicate', label: 'Possible Duplicate', className: 'duplicate' },
+  { key: 'prototype', label: 'Prototype', className: 'prototype' },
+  { key: 'needsResearch', label: 'Needs Research', className: 'research' },
+  { key: 'needsReview', label: 'Needs Review', className: 'review' },
+  { key: 'attributionUncertain', label: 'Attribution Uncertain', className: 'uncertain' },
+  { key: 'materialsIncomplete', label: 'Materials Incomplete', className: 'incomplete' },
+  { key: 'missingDimensions', label: 'Missing Dimensions', className: 'missing' },
+] as const
+
+const activeFlags = flagConfigs.filter(flag => item.flags?.[flag.key as keyof typeof item.flags])
+
+// Detail fields - map over these instead of repeating <div class="detail"> blocks
+const detailFields = [
+  { label: 'Date', value: item.date || 'Unknown', showUnknown: !item.date },
+  { label: 'Type', value: item.objectType, showUnknown: false },
+  { label: 'Department', value: item.department, showUnknown: false },
+  { label: 'Materials', value: item.materials || 'Unknown', showUnknown: !item.materials },
+  { label: 'Dimensions', value: item.dimensions || 'Unknown', showUnknown: !item.dimensions },
+  { label: 'Accession', value: item.accessionNumber || 'Unknown', showUnknown: !item.accessionNumber },
+]
+
 // Additional fields to display (only if present)
 const additionalFields = [
   { key: 'keywords', label: 'Keywords' },
@@ -55,15 +78,11 @@ const additionalFields = [
 <div class="card">
   <div class="card-header">
     <h2 class:list={{ unknown: item.title === 'Unknown Title' }}>{item.title}</h2>
-    {item.flags && (
+    {activeFlags.length > 0 && (
       <div class="flags">
-        {item.flags.possibleDuplicate && <span class="flag duplicate">Possible Duplicate</span>}
-        {item.flags.prototype && <span class="flag prototype">Prototype</span>}
-        {item.flags.needsResearch && <span class="flag research">Needs Research</span>}
-        {item.flags.needsReview && <span class="flag review">Needs Review</span>}
-        {item.flags.attributionUncertain && <span class="flag uncertain">Attribution Uncertain</span>}
-        {item.flags.materialsIncomplete && <span class="flag incomplete">Materials Incomplete</span>}
-        {item.flags.missingDimensions && <span class="flag missing">Missing Dimensions</span>}
+        {activeFlags.map(flag => (
+          <span class={`flag ${flag.className}`}>{flag.label}</span>
+        ))}
       </div>
     )}
   </div>
@@ -73,35 +92,12 @@ const additionalFields = [
   </p>
 
   <dl class="details">
-    <div class="detail">
-      <dt>Date:</dt>
-      <dd class:list={{ unknown: !item.date }}>{item.date || 'Unknown'}</dd>
-    </div>
-
-    <div class="detail">
-      <dt>Type:</dt>
-      <dd>{item.objectType}</dd>
-    </div>
-
-    <div class="detail">
-      <dt>Department:</dt>
-      <dd>{item.department}</dd>
-    </div>
-
-    <div class="detail">
-      <dt>Materials:</dt>
-      <dd class:list={{ unknown: !item.materials }}>{item.materials || 'Unknown'}</dd>
-    </div>
-
-    <div class="detail">
-      <dt>Dimensions:</dt>
-      <dd class:list={{ unknown: !item.dimensions }}>{item.dimensions || 'Unknown'}</dd>
-    </div>
-
-    <div class="detail">
-      <dt>Accession:</dt>
-      <dd class:list={{ unknown: !item.accessionNumber }}>{item.accessionNumber || 'Unknown'}</dd>
-    </div>
+    {detailFields.map(field => (
+      <div class="detail">
+        <dt>{field.label}:</dt>
+        <dd class:list={{ unknown: field.showUnknown }}>{field.value}</dd>
+      </div>
+    ))}
   </dl>
 
   {item.related && item.related.length > 0 && (
