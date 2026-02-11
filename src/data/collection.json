@@ -108,7 +108,11 @@
       "accession_number": "2014.3.14",
       "title": "Velocipede",
       "creator": null,
-      "date": { "display": "late 19th century", "earliest": 1870, "latest": 1899 },
+      "date": {
+        "display": "late 19th century",
+        "earliest": 1870,
+        "latest": 1899
+      },
       "object_type": "Object",
       "department": "Objects",
       "materials": ["metal", "wood"],
@@ -140,84 +144,541 @@
       "transcription": null
     },
 
-    { "object_id": "EI-0011", "accession_number": "2016.5.4", "title": "Eames Office Workshop Photograph", "creator": ["Unknown"], "date": "c. 1969", "object_type": "Photograph", "department": "Photography", "materials": ["gelatin silver print"], "dimensions": { "display": "8 × 10 in" }, "description": "Workshop scene showing furniture prototypes; date approximate." },
+    {
+      "object_id": "EI-0011",
+      "accession_number": "2016.5.4",
+      "title": "Eames Office Workshop Photograph",
+      "creator": ["Unknown"],
+      "date": "c. 1969",
+      "object_type": "Photograph",
+      "department": "Photography",
+      "materials": ["gelatin silver print"],
+      "dimensions": { "display": "8 × 10 in" },
+      "description": "Workshop scene showing furniture prototypes; date approximate."
+    },
 
-    { "object_id": "EI-0012", "accession_number": "2012.8.10", "title": "Film Still: Powers of Ten", "creator": ["Charles Eames", "Ray Eames"], "date": 1977, "object_type": "Film", "department": "Film", "materials": ["film", "photographic print"], "dimensions": null, "external_ids": { "imdb": null, "internal_slug": "powers-of-ten-still" } },
+    {
+      "object_id": "EI-0012",
+      "accession_number": "2012.8.10",
+      "title": "Film Still: Powers of Ten",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": 1977,
+      "object_type": "Film",
+      "department": "Film",
+      "materials": ["film", "photographic print"],
+      "dimensions": null,
+      "external_ids": { "imdb": null, "internal_slug": "powers-of-ten-still" }
+    },
 
-    { "object_id": "EI-0013", "accession_number": "2018.12.6", "title": "Toy Train Village Scene (Toccata for Toy Trains)", "creator": null, "date": { "display": "c. 1957", "earliest": 1956, "latest": 1958 }, "object_type": "Toy", "department": "Toys & Play", "materials": ["wood", "paint"], "dimensions": {}, "series": { "title": "Toccata for Toy Trains", "type": "film-related" } },
+    {
+      "object_id": "EI-0013",
+      "accession_number": "2018.12.6",
+      "title": "Toy Train Village Scene (Toccata for Toy Trains)",
+      "creator": null,
+      "date": { "display": "c. 1957", "earliest": 1956, "latest": 1958 },
+      "object_type": "Toy",
+      "department": "Toys & Play",
+      "materials": ["wood", "paint"],
+      "dimensions": {},
+      "series": { "title": "Toccata for Toy Trains", "type": "film-related" }
+    },
 
-    { "object_id": "EI-0014", "accession_number": "2010.9.9", "title": "Wire Chair Prototype", "creator": [], "date": null, "object_type": "Furniture", "department": "Furniture", "materials": ["wire", "metal"], "dimensions": { "h": "29 in", "w": null, "d": "22 in" }, "flags": { "prototype": true } },
+    {
+      "object_id": "EI-0014",
+      "accession_number": "2010.9.9",
+      "title": "Wire Chair Prototype",
+      "creator": [],
+      "date": null,
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wire", "metal"],
+      "dimensions": { "h": "29 in", "w": null, "d": "22 in" },
+      "flags": { "prototype": true }
+    },
 
-    { "object_id": "EI-0015", "accession_number": "2015.2.2", "title": "Eames Postcards (Selection)", "creator": [], "date": "1950s", "object_type": "Ephemera", "department": "Ephemera", "materials": ["paper", "ink"], "dimensions": { "display": null }, "related": [] },
+    {
+      "object_id": "EI-0015",
+      "accession_number": "2015.2.2",
+      "title": "Eames Postcards (Selection)",
+      "creator": [],
+      "date": "1950s",
+      "object_type": "Ephemera",
+      "department": "Ephemera",
+      "materials": ["paper", "ink"],
+      "dimensions": { "display": null },
+      "related": []
+    },
 
-    { "object_id": "EI-0016", "accession_number": "2018.2.7", "title": "An Exhibition for Modern Living (Catalog)", "creator": "Detroit Institute of Arts", "date": 1949, "object_type": "Publication", "department": "Ephemera", "materials": ["paper"], "dimensions": { "display": "catalog" }, "notes": ["creator is string; object_type is Publication"] },
+    {
+      "object_id": "EI-0016",
+      "accession_number": "2018.2.7",
+      "title": "An Exhibition for Modern Living (Catalog)",
+      "creator": "Detroit Institute of Arts",
+      "date": 1949,
+      "object_type": "Publication",
+      "department": "Ephemera",
+      "materials": ["paper"],
+      "dimensions": { "display": "catalog" },
+      "notes": ["creator is string; object_type is Publication"]
+    },
 
-    { "object_id": "EI-0017", "accession_number": "2017.3.3", "title": "La Fonda Restaurant Table (Prototype)", "creator": ["Charles Eames", "Ray Eames"], "date": "c. 1961", "object_type": "Furniture", "department": "Furniture", "materials": ["wood", "metal"], "dimensions": null, "location": { "site": "Archive", "shelf": "F-12" } },
+    {
+      "object_id": "EI-0017",
+      "accession_number": "2017.3.3",
+      "title": "La Fonda Restaurant Table (Prototype)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": "c. 1961",
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wood", "metal"],
+      "dimensions": null,
+      "location": { "site": "Archive", "shelf": "F-12" }
+    },
 
-    { "object_id": "EI-0018", "accession_number": "2019.1.10", "title": "Special Use Table", "creator": ["Charles Eames", "Ray Eames"], "date": 1953, "object_type": "Furniture", "department": "Furniture", "materials": ["wood", "metal"], "dimensions": { "display": "unknown" }, "tags": null },
+    {
+      "object_id": "EI-0018",
+      "accession_number": "2019.1.10",
+      "title": "Special Use Table",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": 1953,
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wood", "metal"],
+      "dimensions": { "display": "unknown" },
+      "tags": null
+    },
 
-    { "object_id": "EI-0019", "accession_number": "2016.9.1", "title": "3679 Table", "creator": ["Charles Eames", "Ray Eames"], "date": { "display": "1968", "earliest": 1968, "latest": 1968 }, "object_type": "Furniture", "department": "Furniture", "materials": ["laminate", "metal"], "dimensions": null, "external_ids": { "emuseum": "3679", "museumplus": "MP-003679" } },
+    {
+      "object_id": "EI-0019",
+      "accession_number": "2016.9.1",
+      "title": "3679 Table",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": { "display": "1968", "earliest": 1968, "latest": 1968 },
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["laminate", "metal"],
+      "dimensions": null,
+      "external_ids": { "emuseum": "3679", "museumplus": "MP-003679" }
+    },
 
-    { "object_id": "EI-0020", "accession_number": "2016.9.1-DUP", "title": "3679 Table", "creator": ["Charles Eames", "Ray Eames"], "date": 1968, "object_type": "Furniture", "department": "Furniture", "materials": ["laminate", "metal"], "dimensions": null, "external_ids": { "emuseum": "3679", "museumplus": null }, "flags": { "possible_duplicate": true } },
+    {
+      "object_id": "EI-0020",
+      "accession_number": "2016.9.1-DUP",
+      "title": "3679 Table",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": 1968,
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["laminate", "metal"],
+      "dimensions": null,
+      "external_ids": { "emuseum": "3679", "museumplus": null },
+      "flags": { "possible_duplicate": true }
+    },
 
-    { "object_id": "EI-0021", "accession_number": "2019.10.2", "title": "Blue and White English Top", "creator": ["Unknown"], "date": null, "object_type": "Object", "department": "Objects", "materials": ["wood", "paint"], "dimensions": { "display": "small", "diameter": 2.5, "unit": "in" }, "keywords": ["top", "toy", "spinning"] },
+    {
+      "object_id": "EI-0021",
+      "accession_number": "2019.10.2",
+      "title": "Blue and White English Top",
+      "creator": ["Unknown"],
+      "date": null,
+      "object_type": "Object",
+      "department": "Objects",
+      "materials": ["wood", "paint"],
+      "dimensions": { "display": "small", "diameter": 2.5, "unit": "in" },
+      "keywords": ["top", "toy", "spinning"]
+    },
 
-    { "object_id": "EI-0022", "accession_number": "2019.10.3", "title": "Butterfly Kite", "creator": "Unknown", "date": "1950s", "object_type": "Toy", "department": "Toys & Play", "materials": ["paper", "bamboo", "string"], "dimensions": { "display": "approx. 24 in wingspan", "wingspan": "24 in" }, "notes": ["date is a decade string"] },
+    {
+      "object_id": "EI-0022",
+      "accession_number": "2019.10.3",
+      "title": "Butterfly Kite",
+      "creator": "Unknown",
+      "date": "1950s",
+      "object_type": "Toy",
+      "department": "Toys & Play",
+      "materials": ["paper", "bamboo", "string"],
+      "dimensions": {
+        "display": "approx. 24 in wingspan",
+        "wingspan": "24 in"
+      },
+      "notes": ["date is a decade string"]
+    },
 
-    { "object_id": "EI-0023", "accession_number": "2019.10.4", "title": "Toy Drum", "creator": null, "date": { "display": "unknown", "earliest": null, "latest": null }, "object_type": "Toy", "department": "Toys & Play", "materials": [], "dimensions": { "display": null }, "flags": { "materials_incomplete": true } },
+    {
+      "object_id": "EI-0023",
+      "accession_number": "2019.10.4",
+      "title": "Toy Drum",
+      "creator": null,
+      "date": { "display": "unknown", "earliest": null, "latest": null },
+      "object_type": "Toy",
+      "department": "Toys & Play",
+      "materials": [],
+      "dimensions": { "display": null },
+      "flags": { "materials_incomplete": true }
+    },
 
-    { "object_id": "EI-0024", "accession_number": "2018.7.7", "title": "Fiberglass Armchair (Prototype)", "creator": ["Charles Eames", "Ray Eames"], "date": "c. 1950", "object_type": "Furniture", "department": "Furniture", "materials": ["fiberglass", "metal"], "dimensions": { "h": { "value": 31, "unit": "in" }, "w": "25 in", "d": "24 in" }, "variants": [{ "color": "unknown", "shell": "unknown" }] },
+    {
+      "object_id": "EI-0024",
+      "accession_number": "2018.7.7",
+      "title": "Fiberglass Armchair (Prototype)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": "c. 1950",
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["fiberglass", "metal"],
+      "dimensions": {
+        "h": { "value": 31, "unit": "in" },
+        "w": "25 in",
+        "d": "24 in"
+      },
+      "variants": [{ "color": "unknown", "shell": "unknown" }]
+    },
 
-    { "object_id": "EI-0025", "accession_number": "2018.7.8", "title": "Fiberglass Side Chair (DSR)", "creator": ["Charles Eames", "Ray Eames"], "date": 1951, "object_type": "Furniture", "department": "Furniture", "materials": ["fiberglass", "wire base"], "dimensions": { "display": "H 32 in" }, "external_ids": {} },
+    {
+      "object_id": "EI-0025",
+      "accession_number": "2018.7.8",
+      "title": "Fiberglass Side Chair (DSR)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": 1951,
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["fiberglass", "wire base"],
+      "dimensions": { "display": "H 32 in" },
+      "external_ids": {}
+    },
 
-    { "object_id": "EI-0026", "accession_number": "2014.1.2", "title": "Color Study (Mathematica-related)", "creator": ["Ray Eames"], "date": { "display": "1961–1963", "earliest": 1961, "latest": 1963 }, "object_type": "Works on Paper", "department": "Graphics", "materials": ["paper", "paint"], "dimensions": { "h": 14, "w": 11, "unit": "in" }, "description": "" },
+    {
+      "object_id": "EI-0026",
+      "accession_number": "2014.1.2",
+      "title": "Color Study (Mathematica-related)",
+      "creator": ["Ray Eames"],
+      "date": { "display": "1961–1963", "earliest": 1961, "latest": 1963 },
+      "object_type": "Works on Paper",
+      "department": "Graphics",
+      "materials": ["paper", "paint"],
+      "dimensions": { "h": 14, "w": 11, "unit": "in" },
+      "description": ""
+    },
 
-    { "object_id": "EI-0027", "accession_number": "2014.1.3", "title": "Early Illustration", "creator": ["Ray Eames"], "date": "1935–1936", "object_type": "Works on Paper", "department": "Graphics", "materials": ["ink", "paper"], "dimensions": { "display": "unknown" }, "flags": { "needs_review": true } },
+    {
+      "object_id": "EI-0027",
+      "accession_number": "2014.1.3",
+      "title": "Early Illustration",
+      "creator": ["Ray Eames"],
+      "date": "1935–1936",
+      "object_type": "Works on Paper",
+      "department": "Graphics",
+      "materials": ["ink", "paper"],
+      "dimensions": { "display": "unknown" },
+      "flags": { "needs_review": true }
+    },
 
-    { "object_id": "EI-0028", "accession_number": "2012.4.4", "title": "Office of Charles and Ray Eames (Contact Sheet)", "creator": ["Unknown"], "date": 1970, "object_type": "Photograph", "department": "Photography", "materials": ["photographic paper"], "dimensions": { "display": "contact sheet" }, "rights": "unknown" },
+    {
+      "object_id": "EI-0028",
+      "accession_number": "2012.4.4",
+      "title": "Office of Charles and Ray Eames (Contact Sheet)",
+      "creator": ["Unknown"],
+      "date": 1970,
+      "object_type": "Photograph",
+      "department": "Photography",
+      "materials": ["photographic paper"],
+      "dimensions": { "display": "contact sheet" },
+      "rights": "unknown"
+    },
 
-    { "object_id": "EI-0029", "accession_number": "2012.4.5", "title": "Office of Charles and Ray Eames (Negative)", "creator": ["Unknown"], "date": 1970, "object_type": "Photograph", "department": "Photography", "materials": ["film"], "dimensions": null, "related": [{ "type": "derived-from", "object_id": "EI-0028" }] },
+    {
+      "object_id": "EI-0029",
+      "accession_number": "2012.4.5",
+      "title": "Office of Charles and Ray Eames (Negative)",
+      "creator": ["Unknown"],
+      "date": 1970,
+      "object_type": "Photograph",
+      "department": "Photography",
+      "materials": ["film"],
+      "dimensions": null,
+      "related": [{ "type": "derived-from", "object_id": "EI-0028" }]
+    },
 
-    { "object_id": "EI-0030", "accession_number": "2013.2.1", "title": "House of Cards (Deck)", "creator": ["Charles Eames", "Ray Eames"], "date": 1952, "object_type": "Toy", "department": "Toys & Play", "materials": ["paperboard", "ink"], "dimensions": { "display": "deck" }, "edition": { "number": null, "notes": "unknown edition" } },
+    {
+      "object_id": "EI-0030",
+      "accession_number": "2013.2.1",
+      "title": "House of Cards (Deck)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": 1952,
+      "object_type": "Toy",
+      "department": "Toys & Play",
+      "materials": ["paperboard", "ink"],
+      "dimensions": { "display": "deck" },
+      "edition": { "number": null, "notes": "unknown edition" }
+    },
 
-    { "object_id": "EI-0031", "accession_number": "2013.2.2", "title": "House of Cards (Box Only)", "creator": ["Charles Eames", "Ray Eames"], "date": "1952", "object_type": "Toy", "department": "Toys & Play", "materials": ["paperboard"], "dimensions": { "display": "box" }, "related": [{ "type": "part-of", "object_id": "EI-0030" }] },
+    {
+      "object_id": "EI-0031",
+      "accession_number": "2013.2.2",
+      "title": "House of Cards (Box Only)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": "1952",
+      "object_type": "Toy",
+      "department": "Toys & Play",
+      "materials": ["paperboard"],
+      "dimensions": { "display": "box" },
+      "related": [{ "type": "part-of", "object_id": "EI-0030" }]
+    },
 
-    { "object_id": "EI-0032", "accession_number": "2011.3.9", "title": "Eames Lounge Chair (Production)", "creator": ["Charles Eames", "Ray Eames"], "date": { "display": "1956", "earliest": 1956, "latest": 1956 }, "object_type": "Furniture", "department": "Furniture", "materials": ["wood veneer", "leather", "metal"], "dimensions": { "display": "H 32 in", "h": 32, "unit": "in" }, "variants": [{ "finish": "unknown", "upholstery": "black", "notes": null }, { "finish": "unknown", "upholstery": null }] },
+    {
+      "object_id": "EI-0032",
+      "accession_number": "2011.3.9",
+      "title": "Eames Lounge Chair (Production)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": { "display": "1956", "earliest": 1956, "latest": 1956 },
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wood veneer", "leather", "metal"],
+      "dimensions": { "display": "H 32 in", "h": 32, "unit": "in" },
+      "variants": [
+        { "finish": "unknown", "upholstery": "black", "notes": null },
+        { "finish": "unknown", "upholstery": null }
+      ]
+    },
 
-    { "object_id": "EI-0033", "accession_number": "2011.3.10", "title": "Eames Ottoman (Production)", "creator": ["Charles Eames", "Ray Eames"], "date": 1956, "object_type": "Furniture", "department": "Furniture", "materials": ["wood veneer", "leather", "metal"], "dimensions": { "display": "H 15 in", "h": { "value": 15, "unit": "in" } }, "related": [{ "type": "paired-with", "object_id": "EI-0032" }] },
+    {
+      "object_id": "EI-0033",
+      "accession_number": "2011.3.10",
+      "title": "Eames Ottoman (Production)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": 1956,
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wood veneer", "leather", "metal"],
+      "dimensions": {
+        "display": "H 15 in",
+        "h": { "value": 15, "unit": "in" }
+      },
+      "related": [{ "type": "paired-with", "object_id": "EI-0032" }]
+    },
 
-    { "object_id": "EI-0034", "accession_number": "2012.1.1", "title": "Eames Office Letterhead (Sample)", "creator": ["Eames Office"], "date": "1960s", "object_type": "Document", "department": "Documents", "materials": ["paper", "ink"], "dimensions": { "display": "letter size" }, "transcription": "—" },
+    {
+      "object_id": "EI-0034",
+      "accession_number": "2012.1.1",
+      "title": "Eames Office Letterhead (Sample)",
+      "creator": ["Eames Office"],
+      "date": "1960s",
+      "object_type": "Document",
+      "department": "Documents",
+      "materials": ["paper", "ink"],
+      "dimensions": { "display": "letter size" },
+      "transcription": "—"
+    },
 
-    { "object_id": "EI-0035", "accession_number": "2012.1.2", "title": "Eames Office Envelope (Sample)", "creator": ["Eames Office"], "date": "1960s", "object_type": "Document", "department": "Documents", "materials": ["paper"], "dimensions": {}, "flags": { "missing_dimensions": true } },
+    {
+      "object_id": "EI-0035",
+      "accession_number": "2012.1.2",
+      "title": "Eames Office Envelope (Sample)",
+      "creator": ["Eames Office"],
+      "date": "1960s",
+      "object_type": "Document",
+      "department": "Documents",
+      "materials": ["paper"],
+      "dimensions": {},
+      "flags": { "missing_dimensions": true }
+    },
 
-    { "object_id": "EI-0036", "accession_number": "2019.4.1", "title": "Stool (Prototype)", "creator": ["Charles Eames", "Ray Eames"], "date": null, "object_type": "Furniture", "department": "Furniture", "materials": ["wood"], "dimensions": { "h": "?", "w": "?", "d": "?" }, "notes": ["unknown date", "dimension placeholders"] },
+    {
+      "object_id": "EI-0036",
+      "accession_number": "2019.4.1",
+      "title": "Stool (Prototype)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": null,
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wood"],
+      "dimensions": { "h": "?", "w": "?", "d": "?" },
+      "notes": ["unknown date", "dimension placeholders"]
+    },
 
-    { "object_id": "EI-0037", "accession_number": "2019.4.2", "title": "Stool (Prototype)", "creator": ["Charles Eames", "Ray Eames"], "date": "c. 1940s", "object_type": "Furniture", "department": "Furniture", "materials": ["wood"], "dimensions": { "display": "unknown" }, "flags": { "possible_duplicate": true }, "external_ids": { "emuseum": null, "museumplus": "MP-STOOL-02" } },
+    {
+      "object_id": "EI-0037",
+      "accession_number": "2019.4.2",
+      "title": "Stool (Prototype)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": "c. 1940s",
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": ["wood"],
+      "dimensions": { "display": "unknown" },
+      "flags": { "possible_duplicate": true },
+      "external_ids": { "emuseum": null, "museumplus": "MP-STOOL-02" }
+    },
 
-    { "object_id": "EI-0038", "accession_number": "2015.6.6", "title": "Exhibition Photo (Installation View)", "creator": [], "date": 2025, "object_type": "Photograph", "department": "Exhibitions", "materials": ["digital photograph"], "dimensions": null, "description": "Installation view; object list incomplete.", "related": [{ "type": "exhibition", "slug": "past-as-prologue" }] },
+    {
+      "object_id": "EI-0038",
+      "accession_number": "2015.6.6",
+      "title": "Exhibition Photo (Installation View)",
+      "creator": [],
+      "date": 2025,
+      "object_type": "Photograph",
+      "department": "Exhibitions",
+      "materials": ["digital photograph"],
+      "dimensions": null,
+      "description": "Installation view; object list incomplete.",
+      "related": [{ "type": "exhibition", "slug": "past-as-prologue" }]
+    },
 
-    { "object_id": "EI-0039", "accession_number": "2015.6.7", "title": "Exhibition Checklist (Draft)", "creator": ["Eames Institute"], "date": "2025-03", "object_type": "Document", "department": "Exhibitions", "materials": ["paper", "ink"], "dimensions": null, "transcription": null, "status": "draft" },
+    {
+      "object_id": "EI-0039",
+      "accession_number": "2015.6.7",
+      "title": "Exhibition Checklist (Draft)",
+      "creator": ["Eames Institute"],
+      "date": "2025-03",
+      "object_type": "Document",
+      "department": "Exhibitions",
+      "materials": ["paper", "ink"],
+      "dimensions": null,
+      "transcription": null,
+      "status": "draft"
+    },
 
-    { "object_id": "EI-0040", "accession_number": "2010.10.10", "title": "Chair, Unidentified Model", "creator": null, "date": { "display": "unknown", "earliest": null, "latest": null }, "object_type": "Furniture", "department": "Furniture", "materials": null, "dimensions": null, "flags": { "needs_research": true } },
+    {
+      "object_id": "EI-0040",
+      "accession_number": "2010.10.10",
+      "title": "Chair, Unidentified Model",
+      "creator": null,
+      "date": { "display": "unknown", "earliest": null, "latest": null },
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": null,
+      "dimensions": null,
+      "flags": { "needs_research": true }
+    },
 
-    { "object_id": "EI-0041", "accession_number": "2010.10.11", "title": "Chair, Unidentified Model", "creator": null, "date": "unknown", "object_type": "Furniture", "department": "Furniture", "materials": null, "dimensions": null, "flags": { "needs_research": true, "possible_duplicate": true } },
+    {
+      "object_id": "EI-0041",
+      "accession_number": "2010.10.11",
+      "title": "Chair, Unidentified Model",
+      "creator": null,
+      "date": "unknown",
+      "object_type": "Furniture",
+      "department": "Furniture",
+      "materials": null,
+      "dimensions": null,
+      "flags": { "needs_research": true, "possible_duplicate": true }
+    },
 
-    { "object_id": "EI-0042", "accession_number": "2017.8.8", "title": "Mathematica Panel (Photographic Print)", "creator": ["Charles Eames", "Ray Eames"], "date": { "display": "1961", "earliest": 1961, "latest": 1961 }, "object_type": "Photograph", "department": "Photography", "materials": ["photographic paper"], "dimensions": { "display": "24 × 36 in", "w": 36, "h": 24, "unit": "in" }, "keywords": ["mathematica", "exhibition"] },
+    {
+      "object_id": "EI-0042",
+      "accession_number": "2017.8.8",
+      "title": "Mathematica Panel (Photographic Print)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": { "display": "1961", "earliest": 1961, "latest": 1961 },
+      "object_type": "Photograph",
+      "department": "Photography",
+      "materials": ["photographic paper"],
+      "dimensions": { "display": "24 × 36 in", "w": 36, "h": 24, "unit": "in" },
+      "keywords": ["mathematica", "exhibition"]
+    },
 
-    { "object_id": "EI-0043", "accession_number": "2017.8.9", "title": "Mathematica Panel (Digital File)", "creator": ["Eames Office"], "date": 2000, "object_type": "Digital Asset", "department": "Digital", "materials": ["digital file"], "dimensions": null, "related": [{ "type": "derived-from", "object_id": "EI-0042" }] },
+    {
+      "object_id": "EI-0043",
+      "accession_number": "2017.8.9",
+      "title": "Mathematica Panel (Digital File)",
+      "creator": ["Eames Office"],
+      "date": 2000,
+      "object_type": "Digital Asset",
+      "department": "Digital",
+      "materials": ["digital file"],
+      "dimensions": null,
+      "related": [{ "type": "derived-from", "object_id": "EI-0042" }]
+    },
 
-    { "object_id": "EI-0044", "accession_number": "2010.1.1-A", "title": "Richter’s Anchor Blocks (Piece)", "creator": "F. Ad. Richter & Co.", "date": 1900, "object_type": "Toy", "department": "Toys & Play", "materials": ["stone"], "dimensions": { "display": null }, "related": [{ "type": "set-parent", "object_id": "EI-0006" }] },
+    {
+      "object_id": "EI-0044",
+      "accession_number": "2010.1.1-A",
+      "title": "Richter’s Anchor Blocks (Piece)",
+      "creator": "F. Ad. Richter & Co.",
+      "date": 1900,
+      "object_type": "Toy",
+      "department": "Toys & Play",
+      "materials": ["stone"],
+      "dimensions": { "display": null },
+      "related": [{ "type": "set-parent", "object_id": "EI-0006" }]
+    },
 
-    { "object_id": "EI-0045", "accession_number": "2018.8.8", "title": "Film Print (Unlabeled Reel)", "creator": null, "date": null, "object_type": "Film", "department": "Film", "materials": ["film"], "dimensions": { "display": "reel" }, "flags": { "needs_review": true } },
+    {
+      "object_id": "EI-0045",
+      "accession_number": "2018.8.8",
+      "title": "Film Print (Unlabeled Reel)",
+      "creator": null,
+      "date": null,
+      "object_type": "Film",
+      "department": "Film",
+      "materials": ["film"],
+      "dimensions": { "display": "reel" },
+      "flags": { "needs_review": true }
+    },
 
-    { "object_id": "EI-0046", "accession_number": "2018.8.9", "title": "Screening Notes (Handwritten)", "creator": ["Ray Eames"], "date": "1970s", "object_type": "Document", "department": "Documents", "materials": ["paper", "ink"], "dimensions": null, "transcription": "" },
+    {
+      "object_id": "EI-0046",
+      "accession_number": "2018.8.9",
+      "title": "Screening Notes (Handwritten)",
+      "creator": ["Ray Eames"],
+      "date": "1970s",
+      "object_type": "Document",
+      "department": "Documents",
+      "materials": ["paper", "ink"],
+      "dimensions": null,
+      "transcription": ""
+    },
 
-    { "object_id": "EI-0047", "accession_number": "2018.9.1", "title": "Chair Test Sample (Fiberglass)", "creator": ["Charles Eames", "Ray Eames"], "date": { "display": "c. 1949–1951", "earliest": 1949, "latest": 1951 }, "object_type": "Material Sample", "department": "Materials", "materials": ["fiberglass"], "dimensions": { "display": "sample", "w": 6, "h": 6, "unit": "in" }, "notes": ["department differs from object_type"] },
+    {
+      "object_id": "EI-0047",
+      "accession_number": "2018.9.1",
+      "title": "Chair Test Sample (Fiberglass)",
+      "creator": ["Charles Eames", "Ray Eames"],
+      "date": { "display": "c. 1949–1951", "earliest": 1949, "latest": 1951 },
+      "object_type": "Material Sample",
+      "department": "Materials",
+      "materials": ["fiberglass"],
+      "dimensions": { "display": "sample", "w": 6, "h": 6, "unit": "in" },
+      "notes": ["department differs from object_type"]
+    },
 
-    { "object_id": "EI-0048", "accession_number": "2018.9.2", "title": "Color Chip Sheet", "creator": ["Herman Miller?"], "date": "1950s", "object_type": "Ephemera", "department": "Ephemera", "materials": ["paper", "ink"], "dimensions": null, "flags": { "attribution_uncertain": true } },
+    {
+      "object_id": "EI-0048",
+      "accession_number": "2018.9.2",
+      "title": "Color Chip Sheet",
+      "creator": ["Herman Miller?"],
+      "date": "1950s",
+      "object_type": "Ephemera",
+      "department": "Ephemera",
+      "materials": ["paper", "ink"],
+      "dimensions": null,
+      "flags": { "attribution_uncertain": true }
+    },
 
-    { "object_id": "EI-0049", "accession_number": "2019.12.12", "title": "Shipping Crate Stencil", "creator": ["Eames Office"], "date": "1960s", "object_type": "Object", "department": "Objects", "materials": ["wood", "paint"], "dimensions": { "display": "crate panel" }, "keywords": ["shipping", "logistics"] },
+    {
+      "object_id": "EI-0049",
+      "accession_number": "2019.12.12",
+      "title": "Shipping Crate Stencil",
+      "creator": ["Eames Office"],
+      "date": "1960s",
+      "object_type": "Object",
+      "department": "Objects",
+      "materials": ["wood", "paint"],
+      "dimensions": { "display": "crate panel" },
+      "keywords": ["shipping", "logistics"]
+    },
 
-    { "object_id": "EI-0050", "accession_number": "2019.12.13", "title": "Chair Label Tag", "creator": ["Herman Miller", "Eames Office"], "date": 1965, "object_type": "Ephemera", "department": "Ephemera", "materials": ["paper"], "dimensions": { "display": "small tag", "h": 2, "w": 3, "unit": "in" }, "notes": ["multiple creators"] }
+    {
+      "object_id": "EI-0050",
+      "accession_number": "2019.12.13",
+      "title": "Chair Label Tag",
+      "creator": ["Herman Miller", "Eames Office"],
+      "date": 1965,
+      "object_type": "Ephemera",
+      "department": "Ephemera",
+      "materials": ["paper"],
+      "dimensions": { "display": "small tag", "h": 2, "w": 3, "unit": "in" },
+      "notes": ["multiple creators"]
+    }
   ]
 }
