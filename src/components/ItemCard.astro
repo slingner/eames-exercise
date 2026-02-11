@@ -27,7 +27,7 @@ const formatValue = (value: any): string | null => {
   return String(value)
 }
 
-// Flag configurations - map over these instead of hardcoding each flag
+// Flag configurations 
 const flagConfigs = [
   { key: 'possibleDuplicate', label: 'Possible Duplicate', className: 'duplicate' },
   { key: 'prototype', label: 'Prototype', className: 'prototype' },
@@ -40,7 +40,7 @@ const flagConfigs = [
 
 const activeFlags = flagConfigs.filter(flag => item.flags?.[flag.key as keyof typeof item.flags])
 
-// Detail fields - map over these instead of repeating <div class="detail"> blocks
+// Detail fields
 const detailFields = [
   { label: 'Date', value: item.date || 'Unknown', showUnknown: !item.date },
   { label: 'Type', value: item.objectType, showUnknown: false },
