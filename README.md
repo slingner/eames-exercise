@@ -57,6 +57,18 @@ The app will be available at `http://localhost:4321`
 
 **Loading States** - Add skeleton screens while data loads
 
+---
+
+**Structured dates** — Preserve display string alongside earliest/latest values as a date object, enabling range queries without losing curator intent
+
+**Creator as arrays** — Normalize creators to arrays for individual filterability, handle display formatting at the presentation layer
+
+**Non-destructive transforms** — Store raw ingested data before transforming so original data is always available for re-processing
+
+**Stakeholder input** — Understand how the data will be used before making normalization decisions (search, filtering, aggregation needs)
+
+**Reusable modal component** — Extract the modal from ItemCard into its own component for reuse across the app
+
 ## Time Spent
 
 Approximately 3.5 hours total:
